@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchApp.Web", "SearchApp.Web\SearchApp.Web.csproj", "{F456ECD3-BF3E-4A43-BB3B-D797B981B8C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchApp.DataLayer", "SearchApp.DataLayer\SearchApp.DataLayer.csproj", "{0CCA3D0D-A381-42CC-908E-FF191AD74EC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchApp.BusinessLayer", "SearchApp.BusinessLayer\SearchApp.BusinessLayer.csproj", "{155A675D-30BA-4E9D-A428-F33CAD90F78D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F456ECD3-BF3E-4A43-BB3B-D797B981B8C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F456ECD3-BF3E-4A43-BB3B-D797B981B8C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F456ECD3-BF3E-4A43-BB3B-D797B981B8C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CCA3D0D-A381-42CC-908E-FF191AD74EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CCA3D0D-A381-42CC-908E-FF191AD74EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CCA3D0D-A381-42CC-908E-FF191AD74EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CCA3D0D-A381-42CC-908E-FF191AD74EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{155A675D-30BA-4E9D-A428-F33CAD90F78D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{155A675D-30BA-4E9D-A428-F33CAD90F78D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{155A675D-30BA-4E9D-A428-F33CAD90F78D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{155A675D-30BA-4E9D-A428-F33CAD90F78D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
