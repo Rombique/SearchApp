@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SearchApp.DataLayer;
+using SearchApp.DataLayer.EF;
 
 namespace SearchApp.Web
 {
@@ -14,7 +17,13 @@ namespace SearchApp.Web
     {
         public Startup(IConfiguration configuration)
         {
+#if RELEASE
             Configuration = configuration;
+#else
+            Configuration = new ConfigurationBuilder()
+            .AddJsonFile($"appsettings.Development.json")
+            .Build();
+#endif
         }
 
         public IConfiguration Configuration { get; }
@@ -22,6 +31,16 @@ namespace SearchApp.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+#if DEBUG
+            var connection = Configuration["ConnectionString"];
+#else
+            var connection = Configuration["ConnectionString"];
+#endif
+
+            services.AddDbContext<MainContext>(options => // TODO: yep, I know that Web can`t know about DAL. Fix this later
+                options.UseSqlServer(connection)
+            );
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
         }
 
