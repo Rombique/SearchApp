@@ -1,6 +1,6 @@
-﻿namespace SearchApp.DataLayer.Entities
+﻿namespace SearchApp.BusinessLayer.DTO
 {
-    public class Engine
+    public class EngineDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

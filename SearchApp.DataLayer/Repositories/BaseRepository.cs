@@ -9,8 +9,8 @@ namespace SearchApp.DataLayer.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        internal MainContext context;
-        internal DbSet<TEntity> dbSet;
+        protected MainContext context;
+        protected DbSet<TEntity> dbSet;
 
         public BaseRepository(MainContext context)
         {

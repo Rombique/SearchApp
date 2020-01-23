@@ -10,9 +10,17 @@ namespace SearchApp.DataLayer
             var enginesCount = uow.Repository<Engine>().GetCount(null, true);
             if (enginesCount == 0)
             {
-                var enginesList = new List<Engine>()
+                var enginesList = new List<Engine>
                 {
-                    new Engine() { Name = "TestEngine" }
+                    new Engine
+                    {
+                        Name = "Google",
+                        QueryUrl = "https://www.google.com/search?q=",
+                        TitleElementSelector = "div .rc .r a",
+                        DescElementSelector = "div .rc .s .st",
+                        LinkElementSelector = "div .rc .r a",
+                        ResultElementSelector = ".g"
+                    }
                 };
                 enginesList.ForEach(e => uow.Repository<Engine>().AddNew(e));
                 int result = uow.Commit();

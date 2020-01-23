@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SearchApp.BusinessLayer.Services;
 using SearchApp.DataLayer;
 using SearchApp.DataLayer.EF;
 
@@ -40,7 +37,10 @@ namespace SearchApp.Web
             services.AddDbContext<MainContext>(options => // TODO: yep, I know that Web can`t know about DAL. Fix this later
                 options.UseSqlServer(connection)
             );
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<IEnginesService, EnginesService>();
             services.AddControllersWithViews();
         }
 
@@ -65,7 +65,7 @@ namespace SearchApp.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Search}/{action=Index}/{id?}");
             });
         }
     }
