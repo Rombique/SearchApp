@@ -30,7 +30,7 @@ namespace SearchApp.BusinessLayer.Services
 
             var searchTasks = enginesList.Select(e => RunSearchTask(e, words)).ToArray();
 
-            int resultIndex = Task.WaitAny(searchTasks, 5000);
+            int resultIndex = Task.WaitAny(searchTasks, 55000);
 
             if (resultIndex == -1)
                 return new OperationDetails(false, "Время ожидания результатов истекло!", "SearchService.SearchOnline");

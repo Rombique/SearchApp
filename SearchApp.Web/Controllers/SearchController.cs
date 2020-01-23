@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SearchApp.BusinessLayer.DTO;
 using SearchApp.BusinessLayer.Infrastructure;
 using SearchApp.BusinessLayer.Services;
+using SearchApp.Web.Extensions;
 using SearchApp.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,20 +34,21 @@ namespace SearchApp.Web.Controllers
                 if (result.Succeedeed)
                 {
                     SearchResult searchResult = result.Result as SearchResult;
-                    IEnumerable<ResultVM> resultVMs = searchResult.Results.Select(r =>
+                    List<ResultVM> resultVMs = searchResult.Results.Select(r =>
                             new ResultVM
                             {
                                 Link = r.Link,
                                 Description = r.Description,
-                                Title = r.Description
+                                Title = r.Title
                             }
-                        );
-                    AllResultsVM resultsVM = new AllResultsVM
+                        ).ToList();
+                    AllResultsVM allResults = new AllResultsVM
                     {
                         Error = "",
                         Results = resultVMs
                     };
-                    RedirectToAction("Results", new { results = resultsVM });
+                    TempData.Put("allResults", allResults);
+                    return RedirectToAction("Results");
                 }
                 else
                     ModelState.AddModelError(string.Empty, $"{result.Message}\n{result.Result?.ToString()}");
@@ -55,8 +57,9 @@ namespace SearchApp.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Results(AllResultsVM allResults)
+        public IActionResult Results()
         {
+            AllResultsVM allResults = TempData.Get<AllResultsVM>("allResults");
             return View(allResults);
         }
     }

@@ -33,9 +33,9 @@ namespace SearchApp.BusinessLayer.Infrastructure
 
             if (list.Any())
             {
-                var errorItem = list.Select(item => CheckResultDTO(item)).FirstOrDefault(r => !r.Succeedeed);
-                if (errorItem != null)
-                    return errorItem;
+                var errorItems = list.Select(item => CheckResultDTO(item))?.Where(r => r != null && !r.Succeedeed);
+                if (errorItems != null && errorItems.Count() == list.Count())
+                    return errorItems.First();
                 return new SearchResult
                 {
                     Results = list.Take(10),

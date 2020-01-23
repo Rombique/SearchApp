@@ -1,7 +1,22 @@
-﻿
+﻿@model SearchApp.Web.Models.AllResultsVM
 @{
     ViewData["Title"] = "Results";
 }
 
-<h1>Results</h1>
+<h1>Результаты поиска</h1>
+<div class="row">
+    @foreach (var result in Model.Results)
+    {
+        <div class="col-lg-12">
+            <div class="container">
+                <h4>
+                    <a href="@result.Link">
+                        @result.Title
+                    </a>
+                </h4>
+                <p>@result.Description</p>
+            </div>
+        </div>
+    }
+</div>
 
