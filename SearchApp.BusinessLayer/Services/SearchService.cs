@@ -50,7 +50,19 @@ namespace SearchApp.BusinessLayer.Services
 
         public OperationDetails SearchLocally(string words)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(words))
+                return new OperationDetails(false, $"Не задан поисковый запрос", "SearchService.SearchLocally");
+
+            Request request = unitOfWork.Repository<Request>().GetFirst(r => r.Words.Contains(words), null, true, i => i.SearchResults);
+            if (request == null)
+                return new OperationDetails(false, $"Результаты по запросу '{words}' не найдены", "SearchService.SearchLocally");
+
+            var resultDTOs = request.SearchResults.Select(sr =>
+                    new ResultDTO { Link = sr.URL,  Description = sr.Description, Title = sr.Title }
+                );
+
+            SearchResult searchResult = new SearchResult(true, "") { Results = resultDTOs, EngineId = request.EngineId };
+            return new OperationDetails(true, "Успешно", "SearchService.SearchOnline", searchResult);
         }
 
         private Task<SearchResult> RunSearchTask(Engine eng, string words)

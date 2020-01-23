@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SearchApp.BusinessLayer.DTO;
 using SearchApp.BusinessLayer.Infrastructure;
 using SearchApp.BusinessLayer.Services;
 using SearchApp.Web.Extensions;
@@ -30,7 +29,7 @@ namespace SearchApp.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = searchService.SearchOnline(searchVM.Words); //TODO: enginesIds
+                var result = !searchVM.IsOfflineSearch ? searchService.SearchOnline(searchVM.Words) : searchService.SearchLocally(searchVM.Words); //TODO: enginesIds
                 if (result.Succeedeed)
                 {
                     SearchResult searchResult = result.Result as SearchResult;
