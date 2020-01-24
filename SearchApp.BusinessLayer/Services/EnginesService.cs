@@ -52,7 +52,7 @@ namespace SearchApp.BusinessLayer.Services
 
         public OperationDetails GetById(int id)
         {
-            var engine = enginesRepository.GetFirst(p => p.Id == id);
+            var engine = enginesRepository.GetById(id);
             if (engine == null)
                 return new OperationDetails(false, $"Движок с Id={id} не найден", "EnginesService.GetById");
 
@@ -116,7 +116,7 @@ namespace SearchApp.BusinessLayer.Services
             return new OperationDetails(true, "Успех", "EnginesService.GetAll", result);
         }
 
-        private EngineDTO MapEngineDTO(Engine engine) => new EngineDTO()
+        public static EngineDTO MapEngineDTO(Engine engine) => new EngineDTO()
         {
             Id = engine.Id,
             DescElementSelector = engine.DescElementSelector,
