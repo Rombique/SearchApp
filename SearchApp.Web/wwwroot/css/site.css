@@ -30,7 +30,7 @@ body {
     margin-top: 15%;
 }
 
-@media (mint-width: 768px) {
+@media (max-width: 768px) {
     .top {
         margin-top: 15px;
     }
@@ -76,3 +76,30 @@ td {
     th:first-child, td:first-child {
         text-align: left;
     }
+
+.menu {
+    position: fixed;
+    bottom: 15px;
+}
+    .menu .links {
+        display: inline-flex;
+    }
+
+    .menu div h5 {
+        margin: 0px 5% 0px 5%;
+        width: 100%;
+        white-space: nowrap;
+    }
+
+@media (max-width: 768px) {
+    .menu .links {
+        display: block;
+    }
+
+    .menu div h5 {
+        margin: 0px 2px 0px 2px;
+        width: 100%;
+        white-space: nowrap;
+        font-size: 24px;
+    }
+}

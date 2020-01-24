@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SearchApp.BusinessLayer.DTO;
 using SearchApp.BusinessLayer.Services;
-using SearchApp.Web.Extensions;
 using SearchApp.Web.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SearchApp.Web.Controllers
 {
