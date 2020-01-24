@@ -4,6 +4,7 @@ using SearchApp.BusinessLayer.Infrastructure;
 using SearchApp.DataLayer;
 using SearchApp.DataLayer.Entities;
 using SearchApp.DataLayer.Repositories;
+using System.Linq;
 
 namespace SearchApp.BusinessLayer.Services
 {
@@ -48,21 +49,15 @@ namespace SearchApp.BusinessLayer.Services
             }
         }
 
-        public EngineDTO GetById(int id)
+        public OperationDetails GetById(int id)
         {
             var engine = enginesRepository.GetFirst(p => p.Id == id);
             if (engine == null)
-                return null;
+                return new OperationDetails(false, $"Движок с Id={id} не найден", "EnginesService.GetById");
 
-            return new EngineDTO()
-            {
-                Id = id, //TODO:
-                DescElementSelector = engine.DescElementSelector,
-                TitleElementSelector = engine.TitleElementSelector,
-                Name = engine.Name,
-                QueryUrl = engine.QueryUrl,
-                ResultElementSelector = engine.ResultElementSelector
-            };
+            var engineDTO = MapEngineDTO(engine);
+
+            return new OperationDetails(true, $"Движок с Id={id} найден", "EnginesService.GetById", engineDTO);
         }
 
         public OperationDetails Update(EngineDTO engine)
@@ -108,13 +103,36 @@ namespace SearchApp.BusinessLayer.Services
                 return new OperationDetails(false, ex.Message, "EnginesService.DeleteById", ex.InnerException.Message);
             }
         }
+
+        public OperationDetails GetAll()
+        {
+            var entities = enginesRepository.GetAll(true);
+            if (entities == null || entities.Count() == 0)
+                return new OperationDetails(false, $"Ошибка, не найден ни один поисковый движок!", "EnginesService.GetAll");
+
+            var result = entities.Select(e => MapEngineDTO(e)).ToList();
+
+            return new OperationDetails(true, "Успех", "EnginesService.GetAll", result);
+        }
+
+        private EngineDTO MapEngineDTO(Engine engine) => new EngineDTO()
+        {
+            Id = engine.Id,
+            DescElementSelector = engine.DescElementSelector,
+            TitleElementSelector = engine.TitleElementSelector,
+            Name = engine.Name,
+            QueryUrl = engine.QueryUrl,
+            ResultElementSelector = engine.ResultElementSelector,
+            LinkElementSelector = engine.LinkElementSelector
+        };
     }
 
     public interface IEnginesService
     {
         OperationDetails Add(EngineDTO engine);
-        EngineDTO GetById(int id);
+        OperationDetails GetById(int id);
         OperationDetails Update(EngineDTO engine);
         OperationDetails DeleteById(int id);
+        OperationDetails GetAll();
     }
 }
