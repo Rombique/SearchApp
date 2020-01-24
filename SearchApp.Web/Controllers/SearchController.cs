@@ -29,7 +29,7 @@ namespace SearchApp.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = !searchVM.IsOfflineSearch ? searchService.SearchOnline(searchVM.Words) : searchService.SearchLocally(searchVM.Words); //TODO: enginesIds
+                var result = !searchVM.IsOfflineSearch ? searchService.SearchOnline(searchVM.Words, 2) : searchService.SearchLocally(searchVM.Words); //TODO: enginesIds
                 if (result.Succeedeed)
                 {
                     SearchResult searchResult = result.Result as SearchResult;
@@ -44,7 +44,9 @@ namespace SearchApp.Web.Controllers
                     AllResultsVM allResults = new AllResultsVM
                     {
                         Error = "",
-                        Results = resultVMs
+                        Results = resultVMs,
+                        Words = searchVM.Words,
+                        EngineName = searchResult.EngineName
                     };
                     TempData.Put("allResults", allResults);
                     return RedirectToAction("Results");

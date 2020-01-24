@@ -15,6 +15,7 @@ namespace SearchApp.BusinessLayer.Infrastructure
             Message = message;
         }
 
+        public string EngineName { get; set; }
         public int EngineId { get; set; }
         public bool Succeedeed { get; set; }
         public string Message { get; set; }

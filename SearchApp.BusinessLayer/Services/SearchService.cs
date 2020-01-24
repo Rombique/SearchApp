@@ -36,6 +36,8 @@ namespace SearchApp.BusinessLayer.Services
                 return new OperationDetails(false, "Время ожидания результатов истекло!", "SearchService.SearchOnline");
 
             SearchResult firstTaskResult = searchTasks[resultIndex].Result;
+            if (!firstTaskResult.Succeedeed)
+                return new OperationDetails(false, firstTaskResult.Message, "SearchService.SearchOnline");
             try
             {
                 AddNewInfoToDB(firstTaskResult, words);
@@ -61,7 +63,7 @@ namespace SearchApp.BusinessLayer.Services
                     new ResultDTO { Link = sr.URL,  Description = sr.Description, Title = sr.Title }
                 );
 
-            SearchResult searchResult = new SearchResult(true, "") { Results = resultDTOs, EngineId = request.EngineId };
+            SearchResult searchResult = new SearchResult(true, "") { Results = resultDTOs, EngineId = request.EngineId, EngineName = request.Engine?.Name };
             return new OperationDetails(true, "Успешно", "SearchService.SearchOnline", searchResult);
         }
 

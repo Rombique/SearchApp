@@ -1,22 +1,33 @@
 ﻿@model SearchApp.Web.Models.AllResultsVM
 @{
-    ViewData["Title"] = "Results";
+    ViewData["Title"] = Model.Words;
 }
 
-<h1>Результаты поиска</h1>
-<div class="row">
-    @foreach (var result in Model.Results)
-    {
+    <div class="row">
         <div class="col-lg-12">
-            <div class="container">
-                <h4>
-                    <a href="@result.Link">
-                        @result.Title
-                    </a>
-                </h4>
-                <p>@result.Description</p>
-            </div>
+            <h1>Результаты поиска в @Model.EngineName</h1>
         </div>
-    }
-</div>
+    </div>
+
+    <div class="row">
+
+        @foreach (var result in Model.Results)
+        {
+            <div class="col-lg-12">
+                <div class="container">
+                    <h4>
+                        <a href="@result.Link">
+                            @result.Title
+                        </a>
+                    </h4>
+                    <p>@result.Description</p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h5>@Html.ActionLink("Новый запрос", "Index", "Search", new { @style = "right: 0px;" }, null)</h5>
+        </div>
+     </div>
 

@@ -1,5 +1,5 @@
-﻿using HtmlAgilityPack;
-using Fizzler.Systems.HtmlAgilityPack;
+﻿using Fizzler.Systems.HtmlAgilityPack;
+using HtmlAgilityPack;
 using SearchApp.BusinessLayer.DTO;
 using System.Linq;
 
@@ -27,7 +27,7 @@ namespace SearchApp.BusinessLayer.Infrastructure
                 .Select(r => new ResultDTO
                 {
                     Title = r.QuerySelector(titleElementSelector)?.InnerText,
-                    Link = r.QuerySelector(linkElementSelector)?.GetAttributeValue("href", ""),
+                    Link = GetValidURL(r.QuerySelector(linkElementSelector)?.GetAttributeValue("href", "")),
                     Description = r.QuerySelector(descElementSelector)?.InnerText
                 });
 
@@ -41,6 +41,7 @@ namespace SearchApp.BusinessLayer.Infrastructure
                     Results = list.Take(10),
                     EngineId = request.EngineId,
                     Succeedeed = true,
+                    EngineName = request.Engine.Name
                 };
             }
 
@@ -84,6 +85,8 @@ namespace SearchApp.BusinessLayer.Infrastructure
                 return new SearchResult(false, "CheckResultDTO: result.Description - null или empty");
             return null;
         }
+
+        private string GetValidURL(string url) => url.StartsWith("http") ? url : $"http:{url}";
     }
 
     interface IParser

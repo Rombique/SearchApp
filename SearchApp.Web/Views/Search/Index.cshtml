@@ -7,16 +7,16 @@
     </div>
     <div class="col-lg-8 col-md-10">
         <form method="post" asp-controller="Search" asp-action="Index">
-            <div asp-validation-summary="All"></div>
+
             <div>
-                @Html.EditorFor(m => m.Words)
-                @Html.ValidationMessageFor(model => model.Words, string.Empty, new { @class = "text-danger" })
-                <input type="submit" value="Поиск" />
+                @Html.EditorFor(m => m.Words, new { htmlAttributes = new { @class = "search-input" } })
+                <input type="submit" value="Поиск" class="btn btn-primary search-btn" />
             </div>
             <div>
-                @Html.DisplayNameFor(m => m.IsOfflineSearch)
                 @Html.CheckBoxFor(m => m.IsOfflineSearch)
+                @Html.DisplayNameFor(m => m.IsOfflineSearch)
             </div>
+            <div asp-validation-summary="All"></div>
         </form>
     </div>
     <div class="col-lg-2 col-md-1"></div>
