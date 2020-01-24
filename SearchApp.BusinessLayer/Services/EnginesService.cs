@@ -30,7 +30,8 @@ namespace SearchApp.BusinessLayer.Services
                     DescElementSelector = engine.DescElementSelector,
                     QueryUrl = engine.QueryUrl,
                     ResultElementSelector = engine.ResultElementSelector,
-                    TitleElementSelector = engine.TitleElementSelector
+                    TitleElementSelector = engine.TitleElementSelector,
+                    LinkElementSelector = engine.LinkElementSelector
                 };
                 try
                 {

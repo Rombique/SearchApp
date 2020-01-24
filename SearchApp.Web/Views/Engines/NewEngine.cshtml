@@ -1,0 +1,51 @@
+﻿@model SearchApp.Web.Models.EngineVM
+@{
+    ViewData["Title"] = "Добавить поисковый движок";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Добавление поискового движка</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <form method="post" asp-controller="Engines" asp-action="NewEngine">
+            <div>
+                @Html.LabelFor(m => m.Name)
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(model => model.Name, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.QueryUrl)
+                @Html.TextAreaFor(m => m.QueryUrl)
+                @Html.ValidationMessageFor(model => model.QueryUrl, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ResultElementSelector)
+                @Html.TextAreaFor(m => m.ResultElementSelector)
+                @Html.ValidationMessageFor(model => model.ResultElementSelector, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.TitleElementSelector)
+                @Html.TextAreaFor(m => m.TitleElementSelector)
+                @Html.ValidationMessageFor(model => model.TitleElementSelector, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.LinkElementSelector)
+                @Html.TextAreaFor(m => m.LinkElementSelector)
+                @Html.ValidationMessageFor(model => model.LinkElementSelector, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.DescElementSelector)
+                @Html.TextAreaFor(m => m.DescElementSelector)
+                @Html.ValidationMessageFor(model => model.DescElementSelector, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div>
+                <input type="submit" value="Добавить" />
+            </div>
+        </form>
+    </div>
+</div>
+

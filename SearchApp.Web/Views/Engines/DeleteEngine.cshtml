@@ -1,0 +1,26 @@
+﻿@model SearchApp.Web.Models.DeleteEngineVM
+@{
+    ViewData["Title"] = "Удалить поисковый движок";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Добавление поискового движка</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <form method="post" asp-controller="Engines" asp-action="DeleteEngine">
+            <div>
+                @Html.LabelFor(m => m.Id)
+                @Html.EditorFor(m => m.Id)
+                @Html.ValidationMessageFor(model => model.Id, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div>
+                <input type="submit" value="Удалить" />
+            </div>
+        </form>
+    </div>
+</div>
+
