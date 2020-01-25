@@ -30,6 +30,7 @@ namespace SearchApp.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = !searchVM.IsOfflineSearch ? searchService.SearchOnline(searchVM.Words, 1, 3) : searchService.SearchLocally(searchVM.Words); //TODO: enginesIds
+                logger.LogInformation(result.Message);
                 if (result.Succeedeed)
                 {
                     SearchResult searchResult = result.Result as SearchResult;

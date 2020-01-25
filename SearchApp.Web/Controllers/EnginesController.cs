@@ -20,6 +20,7 @@ namespace SearchApp.Web.Controllers
         public IActionResult Index()
         {
             var allEnginesOD = enginesService.GetAll();
+            logger.LogInformation(allEnginesOD.Message);
             if (allEnginesOD.Succeedeed)
             {
                 var engineDTOs = allEnginesOD.Result as IEnumerable<EngineDTO>;
@@ -44,6 +45,7 @@ namespace SearchApp.Web.Controllers
                     TitleElementSelector = engine.TitleElementSelector
                 };
                 var result = enginesService.Add(engineDTO);
+                logger.LogInformation(result.Message);
                 if (result.Succeedeed)
                 {
                     return RedirectToAction("Index");
@@ -68,6 +70,7 @@ namespace SearchApp.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = enginesService.DeleteById(engine.Id);
+                logger.LogInformation(result.Message);
                 if (result.Succeedeed)
                 {
                     return RedirectToAction("Index");

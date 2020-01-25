@@ -86,7 +86,7 @@ namespace SearchApp.BusinessLayer.Infrastructure
             return null;
         }
 
-        private string GetValidURL(string url) => url.StartsWith("http") ? url : $"http:{url}";
+        private string GetValidURL(string url) => !string.IsNullOrEmpty(url) && !url.StartsWith("http") ? $"http:{url}" : url;
     }
 
     interface IParser

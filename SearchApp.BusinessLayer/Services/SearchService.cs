@@ -27,10 +27,13 @@ namespace SearchApp.BusinessLayer.Services
             IEnumerable<Engine> enginesList = enginesIds.Length > 0 
                 ? unitOfWork.Repository<Engine>().Get(e => enginesIds.Contains(e.Id))
                 : unitOfWork.Repository<Engine>().GetAll();
+            
+            if (!enginesList.Any())
+                return new OperationDetails(false, "Ни один поисковый движок не найден!", "SearchService.SearchOnline");
 
             var searchTasks = enginesList.Select(e => RunSearchTask(e, words)).ToArray();
 
-            int resultIndex = Task.WaitAny(searchTasks, 55000);
+            int resultIndex = Task.WaitAny(searchTasks, 5000);
 
             if (resultIndex == -1)
                 return new OperationDetails(false, "Время ожидания результатов истекло!", "SearchService.SearchOnline");
@@ -84,7 +87,7 @@ namespace SearchApp.BusinessLayer.Services
                 Words = words,
                 Engine = engine
             };
-            return Task.Run(() => new Parser().Execute(request));   
+            return Task.Run(() => new Parser().Execute(request));
         }
 
         private void AddNewInfoToDB(SearchResult firstTaskResult, string words)
