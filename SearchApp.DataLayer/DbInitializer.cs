@@ -20,6 +20,15 @@ namespace SearchApp.DataLayer
                         DescElementSelector = "div .rc .s .st",
                         LinkElementSelector = "div .rc .r a",
                         ResultElementSelector = ".g"
+                    },
+                    new Engine
+                    {
+                        Name = "Яндекс",
+                        QueryUrl = "https://yandex.ru/search/?text=",
+                        TitleElementSelector = "h2 a",
+                        DescElementSelector = "div",
+                        LinkElementSelector = "h2 a",
+                        ResultElementSelector = ".serp-item"
                     }
                 };
                 enginesList.ForEach(e => uow.Repository<Engine>().AddNew(e));
